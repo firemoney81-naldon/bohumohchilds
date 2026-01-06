@@ -1,23 +1,459 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+
+    <!-- JSON-LD Structured Data for Naver Snippet Optimization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "태아보험 가입 시기는 언제인가요? 22주 이후 가입해도 되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "태아보험의 핵심인 '선천성 질환 특약'은 임신 22주 6일 이전에만 가입할 수 있습니다. 22주가 지나면 태아 특약이 제외된 어린이보험으로만 가입이 가능해지므로, 반드시 이전에 가입을 완료해야 합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "태아보험과 어린이보험의 차이점은 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "태아보험은 어린이보험에 태아 특약(선천성 질환, 저체중아 인큐베이터 등)을 추가한 상품입니다. 태아 특약은 출생 직후 발생할 수 있는 위험을 집중적으로 보장하며, 출생 후에는 일반 어린이보험으로 자동 전환되어 성장기 보장을 이어갑니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "태아보험 30세 만기와 100세 만기 중 어떤 것이 더 유리한가요?",
+          "@id": "#만기-선택-답변",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "30세 만기는 초기 보험료가 저렴한 장점이 있지만, 성인이 되어 다시 보험을 가입해야 합니다. 100세 만기는 초기 보험료가 높지만 평생 보장이 가능하므로, 비갱신형으로 선택해 미리 준비하는 것이 장기적으로 유리할 수 있습니다."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        /* 변수 설정: 부드럽고 따뜻한 색감으로 변경 */
+        :root {
+            --primary-color: #3B5B9F; /* 톤 다운된 블루 */
+            --secondary-color: #588ABF; /* 부드러운 스카이블루 */
+            --accent-color: #F8B400; /* 따뜻한 옐로우/골드 */
+            --text-color: #333333;
+            --bg-light: #F7F9FC; /* 밝은 배경 */
+            --bg-dark: #EDF2F9; /* 연한 배경 (히어로 섹션) */
+            --btn-cta: #FF7F50; /* 코랄/오렌지 색상 CTA */
+            --border-color: #E0E0E0;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+        
+        body { font-family: 'Noto Sans KR', sans-serif; margin: 0; padding: 0; background-color: #ffffff; color: var(--text-color); line-height: 1.8; word-break: keep-all; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; box-sizing: border-box; }
+        
+        /* 헤더: 로고와 상위 메뉴 */
+        header { background-color: #fff; padding: 20px 0; border-bottom: 1px solid var(--border-color); }
+        header .container { display: flex; justify-content: space-between; align-items: center; }
+        header h1 { margin: 0; font-size: 2.2em; color: var(--primary-color); font-weight: 900; }
+        header h1 a { text-decoration: none; color: inherit; }
+
+        /* 히어로 섹션: 핵심 정보와 CTA */
+        .hero { background-color: var(--bg-dark); color: var(--text-color); text-align: center; padding: 60px 20px; }
+        .hero h2 { font-size: 2.8em; margin-bottom: 10px; font-weight: 900; color: var(--primary-color); line-height: 1.4; }
+        .hero p { font-size: 1.3em; margin-bottom: 20px; color: #555; }
+        
+        /* CTA 버튼: 강렬한 시각적 피드백 */
+        .cta-btn { background-color: var(--btn-cta); color: #fff; padding: 18px 40px; font-size: 1.4em; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; transition: background-color 0.3s, transform 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); text-decoration: none; display: inline-block; }
+        .cta-btn:hover { background-color: #e56b44; transform: translateY(-3px); }
+
+        /* 비교견적 폼: 시각적으로 돋보이게 */
+        .compare-form-box { background-color: #fff; padding: 30px; border-radius: 12px; box-shadow: var(--box-shadow); margin-top: 30px; border: 2px solid var(--secondary-color); max-width: 500px; margin-left: auto; margin-right: auto; }
+        .compare-form-box h3 { color: var(--primary-color); text-align: center; margin-bottom: 20px; font-size: 1.8em; border-bottom: 2px dashed var(--bg-light); padding-bottom: 15px; }
+        .compare-form-box label { display: block; margin-bottom: 10px; font-weight: 500; font-size: 1.1em; color: #555; }
+        .compare-form-box input[type="text"], .compare-form-box input[type="tel"], .compare-form-box input[type="date"] { width: calc(100% - 24px); padding: 12px; margin-bottom: 20px; border: 1px solid var(--border-color); border-radius: 8px; box-sizing: border-box; font-size: 1em; }
+        .compare-form-box .form-footer { font-size: 0.9em; color: #777; margin-top: 15px; text-align: left; line-height: 1.4; }
+        
+        /* 컨텐츠 섹션: 논리적이고 깔끔한 구분 */
+        .content-section { padding: 80px 0; background-color: #fff; }
+        .content-section.bg-light { background-color: var(--bg-light); }
+        .content-section h2 { font-size: 2.5em; color: var(--primary-color); border-bottom: 3px solid var(--accent-color); padding-bottom: 15px; margin-bottom: 40px; text-align: center; font-weight: 700; }
+        .content-section h3 { font-size: 1.8em; color: var(--secondary-color); margin-top: 40px; margin-bottom: 20px; font-weight: 700; }
+        .content-section h4 { font-size: 1.4em; color: var(--primary-color); margin-top: 25px; margin-bottom: 10px; font-weight: 500; border-left: 5px solid var(--accent-color); padding-left: 10px; }
+
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; text-align: center; margin-top: 30px; }
+        .feature-grid .item { padding: 30px; background-color: #ffffff; border-radius: 10px; box-shadow: var(--box-shadow); border: 1px solid var(--border-color); transition: transform 0.3s, box-shadow 0.3s; }
+        .feature-grid .item:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); }
+        .feature-grid .item img { width: 60px; height: 60px; margin-bottom: 15px; border-radius: 50%; background-color: var(--bg-dark); padding: 10px; }
+        .feature-grid .item h4 { font-size: 1.3em; color: var(--primary-color); margin: 0; }
+
+        /* 비교표 스타일 */
+        table.comparison-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 30px; background-color: #fff; box-shadow: var(--box-shadow); border-radius: 8px; overflow: hidden; }
+        table.comparison-table th, table.comparison-table td { padding: 15px; border: 1px solid #ddd; text-align: left; }
+        table.comparison-table th { background-color: var(--secondary-color); color: #fff; font-weight: 700; font-size: 1.1em; }
+        table.comparison-table tr:nth-child(even) { background-color: #f9f9f9; }
+
+        /* 그래프 (이미지 대신 텍스트 기반) */
+        .chart-container { background-color: #f1f7fe; padding: 20px; border-radius: 10px; margin: 30px 0; border: 1px solid #d4e0f1; }
+        .chart-bar { display: flex; align-items: center; margin-bottom: 10px; }
+        .chart-bar span.label { width: 150px; font-weight: 500; color: var(--primary-color); }
+        .chart-bar .bar { height: 25px; background-color: var(--secondary-color); transition: width 1s ease-in-out; border-radius: 3px; position: relative; }
+        .chart-bar .bar span.value { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #fff; font-size: 0.9em; font-weight: bold; }
+
+        /* FAQ 섹션 */
+        .faq-item { border-bottom: 1px solid #eee; padding: 20px 0; }
+        .faq-item h3 { cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: var(--text-color); font-weight: 500; font-size: 1.2em; transition: color 0.3s; }
+        .faq-item h3:hover { color: var(--primary-color); }
+        .faq-item h3::after { content: '+'; font-size: 1.5em; color: var(--secondary-color); transition: transform 0.3s; margin-left: 10px; }
+        .faq-item.active h3::after { content: '-'; transform: rotate(0deg); }
+        .faq-item p { display: none; padding-top: 15px; color: #555; line-height: 1.7; font-size: 1.05em; border-top: 1px dashed var(--border-color); margin-top: 10px; }
+        .faq-item.active p { display: block; }
+        
+        /* '함께 많이 찾는' 키워드 리스트 */
+        .keyword-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; margin-top: 30px; }
+        .keyword-list li { background-color: var(--secondary-color); color: #fff; padding: 10px 20px; margin: 6px; border-radius: 25px; font-weight: 500; font-size: 0.9em; transition: background-color 0.3s; }
+        .keyword-list li:hover { background-color: var(--primary-color); }
+
+        /* 푸터: 사이트 정보 및 링크 */
+        footer { background-color: #333333; color: #fff; text-align: center; padding: 40px 20px; font-size: 0.9em; margin-top: 40px; }
+        footer a { color: #fff; text-decoration: none; margin: 0 10px; opacity: 0.8; }
+        footer a:hover { text-decoration: underline; opacity: 1; }
+
+        /* 모바일 친화적 반응형 디자인 */
+        @media (max-width: 768px) {
+            .hero h2 { font-size: 2em; }
+            .hero p { font-size: 1.1em; }
+            .cta-btn { padding: 15px 30px; font-size: 1.1em; }
+            .content-section { padding: 40px 0; }
+            .content-section h2 { font-size: 2em; margin-bottom: 30px; }
+            .feature-grid { grid-template-columns: 1fr; }
+            table.comparison-table th, table.comparison-table td { font-size: 0.9em; padding: 10px; }
+            .keyword-list { justify-content: flex-start; }
+            .keyword-list li { margin: 4px; padding: 8px 15px; font-size: 0.85em; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1><a href="/">우리 아이 태아보험 비교센터</a></h1>
+            <nav>
+                <!-- SEO 및 사용자 편의를 위한 메뉴 (예시) -->
+                <a href="#가입시기">가입시기</a> | <a href="#보장분석">보장분석</a> | <a href="#보험료절약">보험료 절약팁</a> | <a href="#faq">FAQ</a>
+            </nav>
+        </div>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+        <!-- 히어로 섹션: 태아보험의 핵심 메시지와 즉각적인 CTA -->
+        <section class="hero">
+            <div class="container">
+                <h2>2026년 태아보험가입, 22주 전이 골든타임!</h2>
+                <p>소중한 우리 아이를 위한 첫 보장. 똑똑하게 준비하려면 지금 바로 여러 보험사의 <span style="font-weight: bold; color: var(--btn-cta);">태아보험료 비교견적</span>이 필수입니다.</p>
+
+                <div class="compare-form-box">
+                    <h3>실시간 태아보험료 비교견적 서비스</h3>
+                    <p>간단한 정보 입력으로 <span style="font-weight: bold;">최저가 태아보험</span> 상품을 찾아드립니다.</p>
+                    <form action="#" method="post">
+                        <label for="f_name">예비맘 이름</label>
+                        <input type="text" id="f_name" placeholder="이름을 입력하세요" required>
+                        <label for="f_phone">연락처</label>
+                        <input type="tel" id="f_phone" placeholder="휴대폰 번호를 입력하세요" required>
+                        <label for="f_due_date">출산 예정일</label>
+                        <input type="date" id="f_due_date" required>
+                        <button type="submit" class="cta-btn">태아보험 최저가 견적 받기</button>
+                    </form>
+                    <div class="form-footer">
+                        <p>※ 임신 주수에 따라 가입 가능 여부가 달라질 수 있습니다. 정확한 상담을 위해 출산 예정일을 입력해주세요.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 컨텐츠 섹션 1: 태아보험 필요성 및 핵심 정보 -->
+        <section class="content-section">
+            <div class="container">
+                <h2>태아보험, 왜 반드시 <span style="color: var(--primary-color);">22주 전</span>에 가입해야 할까요?</h2>
+                <p style="text-align: center; font-size: 1.1em; margin-bottom: 30px; line-height: 1.8;">
+                    태아보험은 단순히 아이가 태어난 후의 보장을 넘어, 임신 중 발생 가능한 여러 위험에 대비하는 <span style="font-weight: bold; color: var(--btn-cta);">선제적 대비책</span>입니다. 특히 <span style="font-weight: bold;">선천성 질환</span>이나 <span style="font-weight: bold;">미숙아</span> 출산에 대한 보장은 출생 이후에는 가입이 불가능하거나 제한될 수 있습니다. 2026년 현재, 고령 출산의 증가와 환경적인 요인으로 인해 신생아에게 발생할 수 있는 위험은 더욱 커지고 있습니다.
+                </p>
+
+                <div class="feature-grid">
+                    <div class="item">
+                        <img src="https://via.placeholder.com/60/3B5B9F/fff?text=ICON1" alt="시간 아이콘">
+                        <h4>골든타임: 임신 22주</h4>
+                        <p>태아 특약을 가입할 수 있는 마지노선입니다. 이 시기를 놓치면 가장 중요한 보장인 <span style="font-weight: bold;">선천이상</span> 및 <span style="font-weight: bold;">저체중아</span> 보장을 받을 수 없습니다.</p>
+                    </div>
+                    <div class="item">
+                        <img src="https://via.placeholder.com/60/3B5B9F/fff?text=ICON2" alt="선천질환 아이콘">
+                        <h4>선천성 질환 대비</h4>
+                        <p>태아보험의 가장 큰 <span style="font-weight: bold;">장점</span>이자 <span style="font-weight: bold;">필요성</span>입니다. 출산 후 발견될 수 있는 다양한 선천적 질환에 대한 수술비, 입원비를 보장합니다.</p>
+                    </div>
+                    <div class="item">
+                        <img src="https://via.placeholder.com/60/3B5B9F/fff?text=ICON3" alt="고령출산 아이콘">
+                        <h4>고위험 출산 증가</h4>
+                        <p>고령 임신이나 난임 시술 증가로 <span style="font-weight: bold;">미숙아 출산율</span>이 높아지고 있습니다. 태아보험은 신생아 <span style="font-weight: bold;">인큐베이터 비용</span> 등 고액의 치료비에 대비할 수 있게 해줍니다.</p>
+                    </div>
+                </div>
+
+                <h3 id="가입시기">태아보험 가입시기, 언제 <span style="font-weight: bold;">가장 유리</span>할까?</h3>
+                <p>
+                    태아보험은 임신이 확인된 시점부터 가입할 수 있습니다. 많은 보험사에서는 보통 임신 <span style="font-weight: bold;">16주부터 22주</span> 사이를 권장합니다. 특히 <span style="font-weight: bold;">1차 기형아 검사(임신 11~14주) 이전</span>에 가입하는 것이 가장 안전하다고 알려져 있습니다. 그 이유는 임신 중 발생하는 작은 이상 소견(예: 고혈압, 당뇨)이라도 발견될 경우 <span style="font-weight: bold;">가입이 거절</span>되거나 <span style="font-weight: bold;">보장이 제한</span>될 수 있기 때문입니다. 따라서 임신 사실을 확인하는 즉시 가입을 서두르는 것이 좋습니다.
+                </p>
+            </div>
+        </section>
+
+        <!-- 컨텐츠 섹션 2: 보장 분석 및 만기 비교 -->
+        <section class="content-section bg-light">
+            <div class="container">
+                <h2 id="보장분석">태아보험 보장 분석: <span style="color: var(--primary-color);">필수 특약</span>과 <span style="color: var(--btn-cta);">불필요 특약</span> 완벽 구분</h2>
+                <p>
+                    태아보험은 수많은 특약으로 구성되어 있습니다. <span style="font-weight: bold;">태아보험 저렴한곳</span>을 찾기 위해 불필요한 특약을 무작정 제외하는 것보다는, 필수 보장과 불필요한 보장을 명확히 구분하여 가성비 좋은 설계를 하는 것이 중요합니다. 저희 전문가들은 <span style="font-weight: bold;">내돈내산 후기</span>를 바탕으로 실질적인 <span style="font-weight: bold;">태아보험 추천</span>을 제공합니다.
+                </p>
+
+                <h3 id="태아특약필수">1. 태아 특약, 반드시 포함해야 할 보장</h3>
+                <p>
+                    태아보험의 핵심은 출생 후 1년 이내에 발생하는 신생아 관련 질환 및 선천성 질환에 대한 보장입니다. 이 보장들은 출생 후에는 가입할 수 없으므로, 태아보험 <span style="font-weight: bold;">가입 시</span> 반드시 챙겨야 합니다.
+                </p>
+                <h4>필수 특약 A: 선천이상 수술비 (혀유착증, 심실중격결손 등)</h4>
+                <p>
+                    신생아 100명 중 약 3명은 선천성 기형을 가지고 태어난다고 합니다. <span style="font-weight: bold;">혀유착증(설소대)</span>이나 <span style="font-weight: bold;">선천성 심장질환(심실중격결손)</span> 등은 출생 직후에는 발견되지 않고 성장 과정에서 발견되는 경우가 많습니다. 이 특약은 출생 후 수년 뒤에 발생하는 선천적 질환 수술비까지 보장합니다.
+                </p>
+                <h4>필수 특약 B: 저체중아 인큐베이터 입원일당</h4>
+                <p>
+                    출산 예정일보다 일찍 태어나는 <span style="font-weight: bold;">미숙아</span>는 일반 신생아보다 면역력이 약해 인큐베이터나 신생아 집중치료실(NICU) 이용이 필수적인 경우가 많습니다. 인큐베이터 사용 비용은 고액이며, <span style="font-weight: bold;">태아보험</span>을 통해 이 비용을 보장받을 수 있습니다. <span style="font-weight: bold;">쌍둥이</span>(다태아)의 경우 조기 출산 위험이 높아 이 특약의 중요성이 더욱 강조됩니다.
+                </p>
+                <h4>필수 특약 C: 질병 후유장해 (3~100%)</h4>
+                <p>
+                    <span style="font-weight: bold;">태아보험 가입</span> 시 30세 만기로 설계하더라도, 이 특약을 통해 아이가 성인이 된 이후까지 보장을 받을 수 있습니다. 보장 범위가 넓은 3~100% 특약을 선택하여 영유아기부터 성인기까지 발생하는 질병으로 인한 후유장해에 대비할 수 있습니다.
+                </p>
+
+                <h3 id="만기비교">2. 태아보험 30세 만기 vs 100세 만기, <span style="font-weight: bold;">장단점 비교</span></h3>
+                <p>
+                    <span style="font-weight: bold;">태아보험</span>은 <span style="font-weight: bold;">어린이보험</span>의 형태를 띠기 때문에 만기 설정을 고민해야 합니다. 30세 만기형은 <span style="font-weight: bold;">보험료</span>가 저렴하다는 <span style="font-weight: bold;">장점</span>이, 100세 만기형은 평생 보장이라는 <span style="font-weight: bold;">장점</span>이 있습니다.
+                </p>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>비교 항목</th>
+                            <th>30세 만기형</th>
+                            <th>100세 만기형</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th><span style="font-weight: bold;">보험료</span> 수준</th>
+                            <td><span style="color: blue;">매우 저렴함</span> (초기 <span style="font-weight: bold;">평균 금액</span> 4~5만 원대)</td>
+                            <td><span style="color: red;">비교적 비쌈</span> (초기 <span style="font-weight: bold;">평균 금액</span> 7~8만 원대)</td>
+                        </tr>
+                        <tr>
+                            <th><span style="font-weight: bold;">보장 기간</span></th>
+                            <td>출생 후 30세까지 (이후 재가입 필요)</td>
+                            <td>출생 후 100세까지 (평생 보장)</td>
+                        </tr>
+                        <tr>
+                            <th><span style="font-weight: bold;">장점</span></th>
+                            <td>월 <span style="font-weight: bold;">보험료</span> 부담이 적어 가성비가 좋음. 30세 이후 경제 상황에 맞춰 <span style="font-weight: bold;">새로운 보험</span> 가입 가능.</td>
+                            <td>성인병, 암 등 노후 보장을 미리 확정. <span style="font-weight: bold;">비갱신형</span> 선택 시 <span style="font-weight: bold;">보험료</span> 인상 걱정 없음.</td>
+                        </tr>
+                        <tr>
+                            <th><span style="font-weight: bold;">단점</span></th>
+                            <td>30세 이후 <span style="font-weight: bold;">재가입</span> 시점에 건강 문제가 있다면 <span style="font-weight: bold;">가입</span> 제한 가능성. <span style="font-weight: bold;">보험료</span> 인상 위험.</td>
+                            <td>초기 <span style="font-weight: bold;">보험료</span>가 높아 부담될 수 있음.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="text-align: right; margin-top: 10px; font-size: 0.9em;">* 2026년 기준, 비갱신형 태아보험 상품 비교 결과입니다. 개인 조건에 따라 차이가 있습니다.</p>
+            </div>
+        </section>
+
+        <!-- 컨텐츠 섹션 3: 보험료 절약 팁 및 가입 노하우 -->
+        <section class="content-section">
+            <div class="container">
+                <h2 id="보험료절약">태아보험료 절약 팁: <span style="color: var(--primary-color);">저렴하게</span> 가입하는 노하우</h2>
+                <p style="text-align: center; font-size: 1.1em; margin-bottom: 30px; line-height: 1.8;">
+                    <span style="font-weight: bold;">태아보험 저렴한곳</span>을 찾기 위한 첫걸음은 <span style="font-weight: bold;">보험료 비교</span>입니다. 동일한 보장 내용이라도 보험사별로 <span style="font-weight: bold;">보험료</span>가 크게 달라질 수 있습니다. 또한 불필요한 특약을 제외하고 <span style="font-weight: bold;">비갱신형</span>을 선택하는 것이 장기적인 <span style="font-weight: bold;">보험료</span> 절약의 핵심입니다.
+                </p>
+
+                <div class="chart-container">
+                    <h3>비갱신형 vs 갱신형 보험료 추이 예측 (2026년 기준)</h3>
+                    <div class="chart-bar">
+                        <span class="label">초기 납입액 (0~20년)</span>
+                        <div class="bar" style="width: 70%; background-color: #AEC6CF;">
+                            <span class="value">비갱신형 (높음)</span>
+                        </div>
+                    </div>
+                    <div class="chart-bar">
+                        <span class="label">초기 납입액 (0~20년)</span>
+                        <div class="bar" style="width: 50%; background-color: #E6A7A7;">
+                            <span class="value">갱신형 (낮음)</span>
+                        </div>
+                    </div>
+                    <div class="chart-bar">
+                        <span class="label">총 납입액 (100세 만기 시)</span>
+                        <div class="bar" style="width: 30%; background-color: #AEC6CF;">
+                            <span class="value">비갱신형 (낮음)</span>
+                        </div>
+                    </div>
+                    <div class="chart-bar">
+                        <span class="label">총 납입액 (100세 만기 시)</span>
+                        <div class="bar" style="width: 80%; background-color: #E6A7A7;">
+                            <span class="value">갱신형 (높음)</span>
+                        </div>
+                    </div>
+                    <p style="text-align: right; font-size: 0.9em; margin-top: 10px;">* 예상치로, 실제 상품별 차이가 있을 수 있습니다. 비갱신형은 초기 보험료는 높지만 총 납입액은 적어집니다.</p>
+                </div>
+
+                <h3 id="절약팁">핵심 절약 팁 요약</h3>
+                <h4>1. 불필요한 특약 과감하게 제외하기</h4>
+                <p>
+                    <span style="font-weight: bold;">태아보험</span>에는 <span style="font-weight: bold;">보험료</span>를 높이는 불필요한 특약이 많습니다. 예를 들어, <span style="font-weight: bold;">종합병원 입원일당</span> 특약은 보험료 대비 효율이 낮습니다. <span style="font-weight: bold;">다발성 선천이상 수술비</span> 특약(혀유착증, 모반 등)은 필수지만, 보장 범위가 좁거나 중복되는 특약은 과감하게 제외하여 <span style="font-weight: bold;">저렴하게</span> 가입할 수 있습니다.
+                </p>
+                <h4>2. 만기환급형 대신 순수보장형 선택하기</h4>
+                <p>
+                    만기 시 환급금이 발생하는 만기환급형은 보장성 <span style="font-weight: bold;">보험료</span> 외에 적립 <span style="font-weight: bold;">보험료</span>가 추가됩니다. <span style="font-weight: bold;">순수보장형</span>은 환급금이 없는 대신 월 <span style="font-weight: bold;">보험료</span>가 저렴합니다. <span style="font-weight: bold;">태아보험</span>은 <span style="font-weight: bold;">비갱신형</span>으로 <span style="font-weight: bold;">순수보장형</span>을 선택하는 것이 가장 효율적인 <span style="font-weight: bold;">가입</span> 방법입니다.
+                </p>
+
+                <div class="compare-form-box" style="margin-top: 50px;">
+                    <h3><span style="color: var(--btn-cta);">내 아이 맞춤 태아보험 설계안</span> 무료 요청</h3>
+                    <p>복잡한 특약 조합, 이제 전문가에게 맡기세요. <span style="font-weight: bold;">태아보험</span> 전문가가 <span style="font-weight: bold;">순위</span>별 상품을 비교하여 최적의 <span style="font-weight: bold;">설계안</span>을 제공합니다.</p>
+                    <form action="#" method="post">
+                        <label for="f_name2">예비맘 이름</label>
+                        <input type="text" id="f_name2" placeholder="이름을 입력하세요" required>
+                        <label for="f_phone2">연락처</label>
+                        <input type="tel" id="f_phone2" placeholder="휴대폰 번호를 입력하세요" required>
+                        <label for="f_due_date2">출산 예정일</label>
+                        <input type="date" id="f_due_date2" required>
+                        <button type="submit" class="cta-btn">맞춤 설계안 요청하기</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 컨텐츠 섹션 4: 심화 정보 (산모 특약, 쌍둥이, 고위험군 가입) -->
+        <section class="content-section bg-light">
+            <div class="container">
+                <h2>태아보험 <span style="color: var(--primary-color);">심화 가이드</span>: 고위험군 가입 노하우</h2>
+
+                <h3 id="산모특약">3. 산모 특약, 선택이 아닌 필수!</h3>
+                <p>
+                    <span style="font-weight: bold;">태아보험</span>은 태아뿐만 아니라 임신 중 산모에게 발생할 수 있는 위험도 보장합니다. <span style="font-weight: bold;">산모 특약</span>은 <span style="font-weight: bold;">임신중독증</span>, <span style="font-weight: bold;">조기진통</span>, <span style="font-weight: bold;">임신성 당뇨</span> 등 임신 중 발생할 수 있는 질환에 대한 진단비와 입원비를 보장합니다. 최근에는 <span style="font-weight: bold;">난임 시술</span> 증가로 인해 <span style="font-weight: bold;">시험관 시술</span> 산모를 위한 특약도 주목받고 있습니다. <span style="font-weight: bold;">저렴한 태아보험</span> 설계를 위해 산모 특약을 제외하는 경우도 있지만, 고위험군 임신이 증가하는 추세이므로 전문가들은 필수 보장으로 포함할 것을 권장합니다.
+                </p>
+
+                <h3 id="쌍둥이">4. 쌍둥이 (다태아) 태아보험 가입, 주의사항</h3>
+                <p>
+                    <span style="font-weight: bold;">쌍둥이</span>(다태아) 임신의 경우 <span style="font-weight: bold;">태아보험 가입</span>이 더 까다롭습니다. <span style="font-weight: bold;">조산</span> 및 <span style="font-weight: bold;">저체중아</span> 출산 위험이 높기 때문에 보험사에서는 단태아보다 심사 기준이 엄격하며, <span style="font-weight: bold;">태아 특약</span>에 제한을 두는 경우가 많습니다. 특히 <span style="font-weight: bold;">쌍둥이보험</span>은 <span style="font-weight: bold;">심사</span>에 필요한 서류(초음파 검사 결과지, 진료 기록지)가 많고, <span style="font-weight: bold;">가입</span> 기준이 수시로 변경되므로 <span style="font-weight: bold;">다태아 전문 설계사</span>와 상담하는 것이 유리합니다.
+                </p>
+
+                <h3 id="비교사이트선택">5. 태아보험 비교사이트 선택 노하우</h3>
+                <p>
+                    <span style="font-weight: bold;">태아보험 비교사이트</span>를 이용하면 여러 보험사의 <span style="font-weight: bold;">상품</span>을 한눈에 비교할 수 있습니다. <span style="font-weight: bold;">태아보험 순위</span>를 파악하고, <span style="font-weight: bold;">보험료</span>를 <span style="font-weight: bold;">저렴하게</span> 설계하는 데 도움이 됩니다. <span style="font-weight: bold;">좋은 비교사이트</span>는 단순히 <span style="font-weight: bold;">가장 싼곳</span>을 추천하는 것 외에도, 보장 분석, <span style="font-weight: bold;">가입 후 사후관리</span> (보험금 청구 지원 등) 서비스를 제공하는 곳을 선택해야 합니다.
+                </p>
+
+                <!-- 외부 신뢰성 링크 -->
+                <h3 id="신뢰성자료">신뢰성 있는 외부 자료 참고</h3>
+                <p style="text-align: center; font-size: 1.1em; margin-top: 30px; line-height: 1.8;">
+                    <span style="font-weight: bold;">태아보험</span>은 <span style="font-weight: bold;">선천성 질환</span> 등 전문 지식이 필요한 분야입니다. 아래 공신력 있는 기관의 정보를 참고하여 더욱 정확한 판단을 내리세요.
+                </p>
+                <ul class="keyword-list" style="justify-content: space-around; background-color: #f1f7fe; border-radius: 10px; padding: 20px;">
+                    <li><a href="https://www.easylaw.go.kr/CSW/contents/contents.do?menuId=2163" target="_blank">찾기쉬운 생활법령정보: 임산부 > 태아보험 가입</a></li>
+                    <li><a href="https://www.kidi.or.kr/" target="_blank">보험연구원(KIRI)</a></li>
+                    <li><a href="https://namu.wiki/w/%EC%84%A0%EC%B2%9C%EC%84%B1%20%EC%A7%88%ED%99%98" target="_blank">선천성 질환 정의 (나무위키)</a></li>
+                    <li><a href="https://www.hira.or.kr/" target="_blank">건강보험심사평가원 (HIRA)</a></li>
+                    <li><a href="https://www.mohw.go.kr/" target="_blank">보건복지부 (Ministry of Health and Welfare)</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- FAQ 섹션 -->
+        <section class="content-section">
+            <div class="container">
+                <h2 id="faq">자주 묻는 질문 (FAQ)</h2>
+                <div class="faq-item">
+                    <h3 id="q1">Q. 태아보험과 어린이보험의 <span style="font-weight: bold;">차이점</span>은 무엇인가요?</h3>
+                    <p>A. 태아보험은 어린이보험에 <span style="font-weight: bold;">태아 특약</span>(선천성 질환, 저체중아 인큐베이터 보장 등)을 추가한 상품입니다. 태아 특약은 출생 직후 발생할 수 있는 위험을 집중적으로 보장하며, 출생 후에는 일반 어린이보험으로 자동 전환되어 성장기 보장을 이어갑니다.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 id="q2">Q. 태아보험 <span style="font-weight: bold;">가입시기</span>를 놓치면 어떻게 되나요?</h3>
+                    <p>A. <span style="font-weight: bold;">태아보험</span>의 핵심 보장인 <span style="font-weight: bold;">선천성 질환 특약</span>은 임신 22주 6일 이전에만 가입할 수 있습니다. 이 시기를 넘기면 해당 특약은 <span style="font-weight: bold;">가입</span>할 수 없으며, 출생 후 별도의 <span style="font-weight: bold;">어린이보험</span>을 가입해야 합니다. 출생 후 가입한 어린이보험은 선천성 질환을 보장하지 않습니다.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 id="q3">Q. <span style="font-weight: bold;">태아보험료</span> <span style="font-weight: bold;">평균 금액</span>은 얼마인가요?</h3>
+                    <p>A. <span style="font-weight: bold;">태아보험료 평균 금액</span>은 <span style="font-weight: bold;">만기 설정</span>(30세 vs 100세), <span style="font-weight: bold;">특약 구성</span>, <span style="font-weight: bold;">비갱신형</span> 여부에 따라 크게 달라집니다. 일반적으로 <span style="font-weight: bold;">30세 만기 비갱신형</span>으로 핵심 특약만 구성할 경우 <span style="font-weight: bold;">월 4~5만 원대</span>, 100세 만기로 설계할 경우 <span style="font-weight: bold;">월 7~8만 원대</span>가 <span style="font-weight: bold;">평균</span>적입니다. 정확한 <span style="font-weight: bold;">견적</span>은 <span style="font-weight: bold;">비교견적</span>을 통해 확인하는 것이 가장 좋습니다.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 id="q4">Q. <span style="font-weight: bold;">태아보험 가입</span> 시 <span style="font-weight: bold;">비갱신형</span>을 <span style="font-weight: bold;">추천</span>하는 이유가 무엇인가요?</h3>
+                    <p>A. <span style="font-weight: bold;">비갱신형</span>은 납입 기간 동안 <span style="font-weight: bold;">보험료</span>가 변동되지 않습니다. 초기 <span style="font-weight: bold;">보험료</span>는 갱신형보다 높지만, 장기간 유지 시 <span style="font-weight: bold;">총 납입액</span>이 훨씬 저렴해집니다. 특히 <span style="font-weight: bold;">태아보험</span>은 30세~100세까지 장기간 유지해야 하므로 <span style="font-weight: bold;">비갱신형</span>을 선택하는 것이 <span style="font-weight: bold;">장기적인 관점에서 유리</span>합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 함께 많이 찾는 키워드 -->
+        <section class="content-section" style="padding-top: 0;">
+            <div class="container">
+                <h3 style="margin-top: 0;">함께 많이 찾는 키워드</h3>
+                <ul class="keyword-list">
+                    <li>#태아보험비교사이트</li>
+                    <li>#태아보험추천</li>
+                    <li>#다이렉트태아보험</li>
+                    <li>#태아보험가입시기</li>
+                    <li>#태아보험순위</li>
+                    <li>#태아보험저렴한곳</li>
+                    <li>#태아보험보장내용</li>
+                    <li>#태아보험장단점</li>
+                    <li>#태아보험22주</li>
+                    <li>#선천성질환보장</li>
+                    <li>#저체중아인큐베이터</li>
+                    <li>#산모특약</li>
+                    <li>#태아보험내돈내산후기</li>
+                    <li>#태아보험평균금액</li>
+                    <li>#태아보험비교견적</li>
+                    <li>#어린이보험차이점</li>
+                    <li>#태아보험비갱신형</li>
+                    <li>#태아보험100세만기</li>
+                </ul>
+            </div>
+        </section>
     </main>
-  </body>
-</html>
+
+    <footer>
+        <div class="container">
+            <p><strong>태아보험비교센터</strong> &copy; 2026 All Rights Reserved.</p>
+            <p>
+                <a href="#">개인정보처리방침</a>
+                <a href="#">이용약관</a>
+                <a href="#">문의하기</a>
+            </p>
+            <p>본 사이트는 보험료 비교정보를 제공하며, 실제 계약은 해당 보험사 홈페이지에서 진행됩니다.</p>
+        </div>
+    </footer>
+
+    <!-- 자바스크립트: FAQ 토글 기능 및 스크롤 이벤트 (사용자 경험 개선) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // FAQ 토글 기능
+            document.querySelectorAll('.faq-item h3').forEach(item => {
+                item.addEventListener('click', event => {
+                    const parent = item.parentElement;
+                    parent.classList.toggle('active');
+                });
+            });
+            
+            // 스크롤 시 CTA 버튼 강조 (Dwell Time 증가 유도)
+            const ctaButton = document.querySelector('.cta-btn');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300 && window.scrollY < 2000) {
+                    ctaButton.style.transform = 'scale(1.05)';
+                    ctaButton.style.opacity = '1';
+                } else {
+                    ctaButton.style.transform = 'scale(1.0)';
+                    ctaButton.style.opacity = '0.9';
+                }
+            });
+        });
+    </script>
+
+
+  
